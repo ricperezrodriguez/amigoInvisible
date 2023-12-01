@@ -1,2 +1,25 @@
-<p>aqui va el crucigrama</p>
-<button mat-raised-button color="accent" (click)="volver()">volver</button>
+<div class="container">
+  <p>crucigrama</p>
+
+  <div class="crucigrama">
+    <mat-grid-list [cols]="arr[0].length">
+      <ng-container *ngFor="let fila of arr">
+        <mat-grid-tile
+          *ngFor="let col of fila"
+          [ngClass]="{
+            noSeleccionada: col.sel === casilla.noSel,
+            seleccionada: col.sel === casilla.sel,
+            marcada: col.sel === casilla.marcada
+          }"
+          (click)="teclaSeleccionada(col)"
+        >
+          {{ col.l }}
+        </mat-grid-tile>
+      </ng-container>
+    </mat-grid-list>
+  </div>
+
+  <div>
+    <button mat-raised-button color="accent" (click)="comprobarPalabra()">Comprobar Palabra</button>
+  </div>
+</div>

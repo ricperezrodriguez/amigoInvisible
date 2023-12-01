@@ -1,0 +1,17 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+
+  p {
+    color: grey;
+    font-size: 2rem;
+    font-weight: 700;
+  }
+
+  button {
+    width: 10rem;
+    height: 3rem;
+  }
+}

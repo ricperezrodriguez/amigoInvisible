@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+
+  .crucigrama {
+    width: 80vw;
+
+    .noSeleccionada {
+      background-color: lightblue;
+    }
+
+    .seleccionada {
+      background-color: #f4f469b0;
+    }
+
+    .marcada {
+      background-color: #ff4081;
+      color: white;
+    }
+  }
+}

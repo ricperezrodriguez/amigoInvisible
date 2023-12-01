@@ -8,7 +8,12 @@ export const routes: Routes = [
   // },
   {
     path: '',
-    loadChildren: () => import('./Pages/pages.module').then((m) => m.PagesModule),
+    loadComponent: () => import('./Pages/components/inicio/inicio.component').then((m) => m.InicioComponent),
+  },
+  {
+    path: 'prueba1',
+    loadComponent: () =>
+      import('./Pages/components/crucigrama/crucigrama.component').then((m) => m.CrucigramaComponent),
   },
   {
     path: '404',

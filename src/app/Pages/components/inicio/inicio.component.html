@@ -1,5 +1,9 @@
-<mat-grid-list cols="4" rows="4">
-  <mat-grid-tile [colspan]="4" [rowspan]="2" [style.background]="'lightblue'">
-    <button mat-raised-button color="accent" (click)="irPrueba1()">Iniciar</button>
+<mat-grid-list cols="1" rowHeight="100%">
+  <mat-grid-tile [style.background]="'lightblue'">
+    <div class="content">
+      <p>Vamos a empezar el juego</p>
+
+      <button mat-raised-button color="accent" (click)="irPrueba1()">Iniciar</button>
+    </div>
   </mat-grid-tile>
 </mat-grid-list>
