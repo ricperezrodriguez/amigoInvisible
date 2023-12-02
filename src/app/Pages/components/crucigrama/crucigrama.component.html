@@ -7,9 +7,9 @@
         <mat-grid-tile
           *ngFor="let col of fila"
           [ngClass]="{
-            noSeleccionada: col.sel === casilla.noSel,
-            seleccionada: col.sel === casilla.sel,
-            marcada: col.sel === casilla.marcada
+            noSeleccionada: !col.sel,
+            seleccionada: col.sel,
+            marcada: col.marcada && !col.sel
           }"
           (click)="teclaSeleccionada(col)"
         >
@@ -20,6 +20,12 @@
   </div>
 
   <div>
-    <button mat-raised-button color="accent" (click)="comprobarPalabra()">Comprobar Palabra</button>
+    <button mat-raised-button color="accent" [disabled]="juegoAcabado" (click)="comprobarPalabra()">
+      Comprobar Palabra
+    </button>
+  </div>
+
+  <div class="palabras">
+    <p *ngFor="let palabra of palabras" [ngClass]="{ tachada: palabra.encontrada }">{{ palabra.palabra }}</p>
   </div>
 </div>

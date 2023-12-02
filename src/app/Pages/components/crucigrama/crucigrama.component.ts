@@ -2,17 +2,16 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { Router } from '@angular/router';
 
 interface Letra {
-  sel: Casilla;
+  sel: boolean;
+  marcada: boolean;
   l: string;
 }
 
-enum Casilla {
-  sel = 0,
-  noSel = 1,
-  marcada = 2,
+interface Palabra {
+  palabra: string;
+  encontrada: boolean;
 }
 @Component({
   selector: 'app-inicio',
@@ -23,64 +22,83 @@ enum Casilla {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CrucigramaComponent implements OnInit {
-  casilla = Casilla;
   letrasSeleccionas: string = '';
 
-  private palabras = [
-    'gayoso',
-    'piñeiro',
-    'mucha e nucha',
-    'digocho eu',
-    'larpeiros',
-    'xabarin club',
-    'land rober',
-    'luar',
-    'touriñan',
+  palabras: Palabra[] = [
+    {
+      palabra: 'gayoso',
+      encontrada: false,
+    },
+    {
+      palabra: 'piñeiro',
+      encontrada: false,
+    },
+    {
+      palabra: 'mucha e nucha',
+      encontrada: false,
+    },
+    {
+      palabra: 'digocho eu',
+      encontrada: false,
+    },
+    {
+      palabra: 'larpeiros',
+      encontrada: false,
+    },
+    {
+      palabra: 'xabarin club',
+      encontrada: false,
+    },
+    {
+      palabra: 'land rober',
+      encontrada: false,
+    },
+    {
+      palabra: 'luar',
+      encontrada: false,
+    },
+    {
+      palabra: 'touriñan',
+      encontrada: false,
+    },
   ];
+
+  get juegoAcabado(): boolean {
+    return this.palabras.every((p) => p.encontrada);
+  }
 
   private palabrasOrdenadas: string[] = [];
 
   /* prettier-ignore */
   arr: Letra[][] = [
-    [{sel: Casilla.noSel, l: 'L'}, {sel: Casilla.noSel, l: 'I'}, {sel: Casilla.noSel, l: 'V'}, {sel: Casilla.noSel, l: 'N'}, {sel: Casilla.noSel, l: 'A'}, {sel: Casilla.noSel, l: 'Ñ'}, {sel: Casilla.noSel, l: 'I'}, {sel: Casilla.noSel, l: 'R'}, {sel: Casilla.noSel, l: 'U'}, {sel: Casilla.noSel, l: 'O'}, {sel: Casilla.noSel, l: 'T'}, ],
-    [{sel: Casilla.noSel, l: 'O'}, {sel: Casilla.noSel, l: 'E'}, {sel: Casilla.noSel, l: 'T'}, {sel: Casilla.noSel, l: 'S'}, {sel: Casilla.noSel, l: 'E'}, {sel: Casilla.noSel, l: 'O'}, {sel: Casilla.noSel, l: 'A'}, {sel: Casilla.noSel, l: 'E'}, {sel: Casilla.noSel, l: 'R'}, {sel: Casilla.noSel, l: 'Y'}, {sel: Casilla.noSel, l: 'I'}, ],
-    [{sel: Casilla.noSel, l: 'B'}, {sel: Casilla.noSel, l: 'E'}, {sel: Casilla.noSel, l: 'J'}, {sel: Casilla.noSel, l: 'W'}, {sel: Casilla.noSel, l: 'S'}, {sel: Casilla.noSel, l: 'E'}, {sel: Casilla.noSel, l: 'O'}, {sel: Casilla.noSel, l: 'R'}, {sel: Casilla.noSel, l: 'U'}, {sel: Casilla.noSel, l: 'Y'}, {sel: Casilla.noSel, l: 'H'}, ],
-    [{sel: Casilla.noSel, l: 'E'}, {sel: Casilla.noSel, l: 'I'}, {sel: Casilla.noSel, l: 'Z'}, {sel: Casilla.noSel, l: 'O'}, {sel: Casilla.noSel, l: 'Q'}, {sel: Casilla.noSel, l: 'H'}, {sel: Casilla.noSel, l: 'S'}, {sel: Casilla.noSel, l: 'A'}, {sel: Casilla.noSel, l: 'T'}, {sel: Casilla.noSel, l: 'A'}, {sel: Casilla.noSel, l: 'Ñ'}, ],
-    [{sel: Casilla.noSel, l: 'R'}, {sel: Casilla.noSel, l: 'D'}, {sel: Casilla.noSel, l: 'Y'}, {sel: Casilla.noSel, l: 'J'}, {sel: Casilla.noSel, l: 'C'}, {sel: Casilla.noSel, l: 'W'}, {sel: Casilla.noSel, l: 'D'}, {sel: Casilla.noSel, l: 'U'}, {sel: Casilla.noSel, l: 'E'}, {sel: Casilla.noSel, l: 'B'}, {sel: Casilla.noSel, l: 'G'}, ],
-    [{sel: Casilla.noSel, l: 'A'}, {sel: Casilla.noSel, l: 'A'}, {sel: Casilla.noSel, l: 'A'}, {sel: Casilla.noSel, l: 'O'}, {sel: Casilla.noSel, l: 'P'}, {sel: Casilla.noSel, l: 'W'}, {sel: Casilla.noSel, l: 'S'}, {sel: Casilla.noSel, l: 'L'}, {sel: Casilla.noSel, l: 'S'}, {sel: Casilla.noSel, l: 'J'}, {sel: Casilla.noSel, l: 'R'}, ],
-    [{sel: Casilla.noSel, l: 'G'}, {sel: Casilla.noSel, l: 'J'}, {sel: Casilla.noSel, l: 'G'}, {sel: Casilla.noSel, l: 'N'}, {sel: Casilla.noSel, l: 'O'}, {sel: Casilla.noSel, l: 'R'}, {sel: Casilla.noSel, l: 'I'}, {sel: Casilla.noSel, l: 'E'}, {sel: Casilla.noSel, l: 'Ñ'}, {sel: Casilla.noSel, l: 'I'}, {sel: Casilla.noSel, l: 'P'}, ],
-    [{sel: Casilla.noSel, l: 'V'}, {sel: Casilla.noSel, l: 'I'}, {sel: Casilla.noSel, l: 'L'}, {sel: Casilla.noSel, l: 'A'}, {sel: Casilla.noSel, l: 'N'}, {sel: Casilla.noSel, l: 'D'}, {sel: Casilla.noSel, l: 'R'}, {sel: Casilla.noSel, l: 'O'}, {sel: Casilla.noSel, l: 'B'}, {sel: Casilla.noSel, l: 'E'}, {sel: Casilla.noSel, l: 'R'}, ],
-    [{sel: Casilla.noSel, l: 'D'}, {sel: Casilla.noSel, l: 'A'}, {sel: Casilla.noSel, l: 'S'}, {sel: Casilla.noSel, l: 'O'}, {sel: Casilla.noSel, l: 'R'}, {sel: Casilla.noSel, l: 'I'}, {sel: Casilla.noSel, l: 'E'}, {sel: Casilla.noSel, l: 'P'}, {sel: Casilla.noSel, l: 'R'}, {sel: Casilla.noSel, l: 'A'}, {sel: Casilla.noSel, l: 'L'}, ],
-    [{sel: Casilla.noSel, l: 'B'}, {sel: Casilla.noSel, l: 'U'}, {sel: Casilla.noSel, l: 'L'}, {sel: Casilla.noSel, l: 'C'}, {sel: Casilla.noSel, l: 'N'}, {sel: Casilla.noSel, l: 'I'}, {sel: Casilla.noSel, l: 'R'}, {sel: Casilla.noSel, l: 'A'}, {sel: Casilla.noSel, l: 'B'}, {sel: Casilla.noSel, l: 'A'}, {sel: Casilla.noSel, l: 'X'}, ],
-    [{sel: Casilla.noSel, l: 'A'}, {sel: Casilla.noSel, l: 'H'}, {sel: Casilla.noSel, l: 'C'}, {sel: Casilla.noSel, l: 'U'}, {sel: Casilla.noSel, l: 'N'}, {sel: Casilla.noSel, l: 'E'}, {sel: Casilla.noSel, l: 'A'}, {sel: Casilla.noSel, l: 'H'}, {sel: Casilla.noSel, l: 'C'}, {sel: Casilla.noSel, l: 'U'}, {sel: Casilla.noSel, l: 'M'}, ],
+    [{sel: false, marcada: false, l: 'L'}, {sel: false, marcada: false, l: 'I'}, {sel: false, marcada: false, l: 'V'}, {sel: false, marcada: false, l: 'N'}, {sel: false, marcada: false, l: 'A'}, {sel: false, marcada: false, l: 'Ñ'}, {sel: false, marcada: false, l: 'I'}, {sel: false, marcada: false, l: 'R'}, {sel: false, marcada: false, l: 'U'}, {sel: false, marcada: false, l: 'O'}, {sel: false, marcada: false, l: 'T'}, ],
+    [{sel: false, marcada: false, l: 'O'}, {sel: false, marcada: false, l: 'E'}, {sel: false, marcada: false, l: 'T'}, {sel: false, marcada: false, l: 'S'}, {sel: false, marcada: false, l: 'E'}, {sel: false, marcada: false, l: 'O'}, {sel: false, marcada: false, l: 'A'}, {sel: false, marcada: false, l: 'E'}, {sel: false, marcada: false, l: 'R'}, {sel: false, marcada: false, l: 'Y'}, {sel: false, marcada: false, l: 'I'}, ],
+    [{sel: false, marcada: false, l: 'B'}, {sel: false, marcada: false, l: 'E'}, {sel: false, marcada: false, l: 'J'}, {sel: false, marcada: false, l: 'W'}, {sel: false, marcada: false, l: 'S'}, {sel: false, marcada: false, l: 'E'}, {sel: false, marcada: false, l: 'O'}, {sel: false, marcada: false, l: 'R'}, {sel: false, marcada: false, l: 'U'}, {sel: false, marcada: false, l: 'Y'}, {sel: false, marcada: false, l: 'H'}, ],
+    [{sel: false, marcada: false, l: 'E'}, {sel: false, marcada: false, l: 'I'}, {sel: false, marcada: false, l: 'Z'}, {sel: false, marcada: false, l: 'O'}, {sel: false, marcada: false, l: 'Q'}, {sel: false, marcada: false, l: 'H'}, {sel: false, marcada: false, l: 'S'}, {sel: false, marcada: false, l: 'A'}, {sel: false, marcada: false, l: 'T'}, {sel: false, marcada: false, l: 'A'}, {sel: false, marcada: false, l: 'Ñ'}, ],
+    [{sel: false, marcada: false, l: 'R'}, {sel: false, marcada: false, l: 'D'}, {sel: false, marcada: false, l: 'Y'}, {sel: false, marcada: false, l: 'J'}, {sel: false, marcada: false, l: 'C'}, {sel: false, marcada: false, l: 'W'}, {sel: false, marcada: false, l: 'D'}, {sel: false, marcada: false, l: 'U'}, {sel: false, marcada: false, l: 'E'}, {sel: false, marcada: false, l: 'B'}, {sel: false, marcada: false, l: 'G'}, ],
+    [{sel: false, marcada: false, l: 'A'}, {sel: false, marcada: false, l: 'A'}, {sel: false, marcada: false, l: 'A'}, {sel: false, marcada: false, l: 'O'}, {sel: false, marcada: false, l: 'P'}, {sel: false, marcada: false, l: 'W'}, {sel: false, marcada: false, l: 'S'}, {sel: false, marcada: false, l: 'L'}, {sel: false, marcada: false, l: 'S'}, {sel: false, marcada: false, l: 'J'}, {sel: false, marcada: false, l: 'R'}, ],
+    [{sel: false, marcada: false, l: 'G'}, {sel: false, marcada: false, l: 'J'}, {sel: false, marcada: false, l: 'G'}, {sel: false, marcada: false, l: 'N'}, {sel: false, marcada: false, l: 'O'}, {sel: false, marcada: false, l: 'R'}, {sel: false, marcada: false, l: 'I'}, {sel: false, marcada: false, l: 'E'}, {sel: false, marcada: false, l: 'Ñ'}, {sel: false, marcada: false, l: 'I'}, {sel: false, marcada: false, l: 'P'}, ],
+    [{sel: false, marcada: false, l: 'V'}, {sel: false, marcada: false, l: 'I'}, {sel: false, marcada: false, l: 'L'}, {sel: false, marcada: false, l: 'A'}, {sel: false, marcada: false, l: 'N'}, {sel: false, marcada: false, l: 'D'}, {sel: false, marcada: false, l: 'R'}, {sel: false, marcada: false, l: 'O'}, {sel: false, marcada: false, l: 'B'}, {sel: false, marcada: false, l: 'E'}, {sel: false, marcada: false, l: 'R'}, ],
+    [{sel: false, marcada: false, l: 'D'}, {sel: false, marcada: false, l: 'A'}, {sel: false, marcada: false, l: 'S'}, {sel: false, marcada: false, l: 'O'}, {sel: false, marcada: false, l: 'R'}, {sel: false, marcada: false, l: 'I'}, {sel: false, marcada: false, l: 'E'}, {sel: false, marcada: false, l: 'P'}, {sel: false, marcada: false, l: 'R'}, {sel: false, marcada: false, l: 'A'}, {sel: false, marcada: false, l: 'L'}, ],
+    [{sel: false, marcada: false, l: 'B'}, {sel: false, marcada: false, l: 'U'}, {sel: false, marcada: false, l: 'L'}, {sel: false, marcada: false, l: 'C'}, {sel: false, marcada: false, l: 'N'}, {sel: false, marcada: false, l: 'I'}, {sel: false, marcada: false, l: 'R'}, {sel: false, marcada: false, l: 'A'}, {sel: false, marcada: false, l: 'B'}, {sel: false, marcada: false, l: 'A'}, {sel: false, marcada: false, l: 'X'}, ],
+    [{sel: false, marcada: false, l: 'A'}, {sel: false, marcada: false, l: 'H'}, {sel: false, marcada: false, l: 'C'}, {sel: false, marcada: false, l: 'U'}, {sel: false, marcada: false, l: 'N'}, {sel: false, marcada: false, l: 'E'}, {sel: false, marcada: false, l: 'A'}, {sel: false, marcada: false, l: 'H'}, {sel: false, marcada: false, l: 'C'}, {sel: false, marcada: false, l: 'U'}, {sel: false, marcada: false, l: 'M'}, ],
   ]
-
-  constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.palabras.forEach((palabra) => {
-      this.palabrasOrdenadas.push(palabra.split('').sort().join('').trim().toUpperCase());
+      this.palabrasOrdenadas.push(palabra.palabra.split('').sort().join('').trim().toUpperCase());
     });
-    console.log(this.palabrasOrdenadas);
-  }
-
-  volver() {
-    this.router.navigate(['']);
   }
 
   teclaSeleccionada(letra: Letra) {
     if (letra.sel) {
-    }
-
-    if (letra.sel === Casilla.sel) {
-      letra.sel = Casilla.noSel;
+      letra.sel = false;
       this.letrasSeleccionas = this.letrasSeleccionas.replace(letra.l, '');
-    } else if (letra.sel === Casilla.noSel) {
-      letra.sel = Casilla.sel;
+    } else {
+      letra.sel = true;
       this.letrasSeleccionas = this.letrasSeleccionas.concat(letra.l);
     }
-
-    console.log(this.letrasSeleccionas);
+    console.log(this.arr);
   }
 
   comprobarPalabra() {
@@ -89,23 +107,27 @@ export class CrucigramaComponent implements OnInit {
     if (this.palabrasOrdenadas.includes(p)) {
       this.arr = this.arr.map((fila) => {
         return fila.map((col) => {
-          if (col.sel === Casilla.sel) {
+          if (col.sel) {
             return {
               ...col,
-              sel: Casilla.marcada,
+              sel: false,
+              marcada: true,
             };
           } else {
             return col;
           }
         });
       });
+
+      const pos = this.palabrasOrdenadas.indexOf(p);
+      this.palabras[pos].encontrada = true;
     } else {
       this.arr = this.arr.map((fila) => {
         return fila.map((col) => {
-          if (col.sel === Casilla.sel) {
+          if (col.sel) {
             return {
               ...col,
-              sel: Casilla.noSel,
+              sel: false,
             };
           } else {
             return col;
@@ -115,5 +137,6 @@ export class CrucigramaComponent implements OnInit {
     }
 
     this.letrasSeleccionas = '';
+    console.log(this.arr);
   }
 }
