@@ -20,7 +20,12 @@
   </div>
 
   <div>
-    <button mat-raised-button color="accent" [disabled]="juegoAcabado" (click)="comprobarPalabra()">
+    <button
+      mat-raised-button
+      color="accent"
+      [disabled]="juegoAcabado || letrasSeleccionas === ''"
+      (click)="comprobarPalabra()"
+    >
       Comprobar Palabra
     </button>
   </div>

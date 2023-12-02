@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { ModalFailComponent } from 'src/app/shared/modal-fail/modal-fail.component';
+import { ModalService } from 'src/app/shared/modal.service';
 
 interface Letra {
   sel: boolean;
@@ -84,6 +86,8 @@ export class CrucigramaComponent implements OnInit {
     [{sel: false, marcada: false, l: 'A'}, {sel: false, marcada: false, l: 'H'}, {sel: false, marcada: false, l: 'C'}, {sel: false, marcada: false, l: 'U'}, {sel: false, marcada: false, l: 'N'}, {sel: false, marcada: false, l: 'E'}, {sel: false, marcada: false, l: 'A'}, {sel: false, marcada: false, l: 'H'}, {sel: false, marcada: false, l: 'C'}, {sel: false, marcada: false, l: 'U'}, {sel: false, marcada: false, l: 'M'}, ],
   ]
 
+  constructor(private _modalService: ModalService) {}
+
   ngOnInit(): void {
     this.palabras.forEach((palabra) => {
       this.palabrasOrdenadas.push(palabra.palabra.split('').sort().join('').trim().toUpperCase());
@@ -98,7 +102,6 @@ export class CrucigramaComponent implements OnInit {
       letra.sel = true;
       this.letrasSeleccionas = this.letrasSeleccionas.concat(letra.l);
     }
-    console.log(this.arr);
   }
 
   comprobarPalabra() {
@@ -134,9 +137,10 @@ export class CrucigramaComponent implements OnInit {
           }
         });
       });
+
+      this._modalService.mostrarModal(ModalFailComponent);
     }
 
     this.letrasSeleccionas = '';
-    console.log(this.arr);
   }
 }
