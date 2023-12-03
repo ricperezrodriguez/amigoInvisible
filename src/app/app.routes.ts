@@ -16,6 +16,23 @@ export const routes: Routes = [
       import('./Pages/components/crucigrama/crucigrama.component').then((m) => m.CrucigramaComponent),
   },
   {
+    path: 'prueba2',
+    loadComponent: () => import('./Pages/components/asociar/asociar.component').then((m) => m.AsociarComponent),
+  },
+  {
+    path: 'prueba3',
+    loadComponent: () => import('./Pages/components/pregunta/pregunta.component').then((m) => m.PreguntaComponent),
+  },
+  {
+    path: 'prueba4',
+    loadComponent: () =>
+      import('./Pages/components/crucigrama/crucigrama.component').then((m) => m.CrucigramaComponent),
+  },
+  {
+    path: 'resumen',
+    loadComponent: () => import('./Pages/components/final/final.component').then((m) => m.FinalComponent),
+  },
+  {
     path: '404',
     component: ErrorPageComponent,
   },

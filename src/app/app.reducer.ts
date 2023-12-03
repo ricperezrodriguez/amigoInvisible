@@ -1,15 +1,10 @@
-// import { ActionReducer, ActionReducerMap } from '@ngrx/store';
-// import { Todo } from './todos/models/todo.model';
-// import { todoReducer } from './todos/todo.reducer';
-// import { filtrosValidos } from './filtro/filtro.actions';
-// import { filtroReducer } from './filtro/filtro.reducer';
+import { ActionReducerMap } from '@ngrx/store';
+import { pruebasReducer } from './state/pruebas.reducer';
 
-// export interface AppState {
-//   todos: Todo[];
-//   filtro: filtrosValidos;
-// }
+export interface AppState {
+  estadoPruebas: boolean[];
+}
 
-// export const appReducers: ActionReducerMap<AppState> = {
-//   todos: todoReducer,
-//   filtro: filtroReducer,
-// };
+export const appReducers: ActionReducerMap<AppState> = {
+  estadoPruebas: pruebasReducer,
+};

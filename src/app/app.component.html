@@ -1,1 +1,41 @@
-<router-outlet></router-outlet>
+<mat-drawer-container fullscreen [hasBackdrop]="true">
+  <mat-drawer #sidenav mode="push">
+    <mat-toolbar color="primary">
+      <span>Lista de Pruebas</span>
+      <span class="spacer"></span>
+    </mat-toolbar>
+
+    <mat-nav-list>
+      <a
+        *ngFor="let prueba of estadoPruebas; index as i"
+        routerLink="{{ 'prueba' + (i + 1) }}"
+        mat-list-item
+        (click)="sidenav.toggle()"
+        class="list__icon"
+      >
+        <mat-icon *ngIf="prueba" class="iconOk" matListItemIcon>thumb_up</mat-icon>
+        <mat-icon *ngIf="!prueba" class="iconMal" matListItemIcon>thumb_down</mat-icon>
+        <div matListItemTitle>{{ 'Prueba ' + i }}</div>
+        <div matListItemLine>{{ prueba ? 'Superada' : 'No superada' }}</div>
+      </a>
+    </mat-nav-list>
+  </mat-drawer>
+
+  <mat-toolbar color="primary">
+    <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <span class="spacer"></span>
+
+    <button mat-raised-button color="primary" class="estrellas" routerLink="resumen">
+      <mat-icon *ngFor="let prueba of estadoPruebas" [ngClass]="{ superada: prueba }">grade</mat-icon>
+    </button>
+
+    <button mat-raised-button color="primary" routerLink="">
+      <mat-icon>home</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <router-outlet></router-outlet>
+</mat-drawer-container>

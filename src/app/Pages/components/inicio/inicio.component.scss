@@ -1,13 +1,21 @@
+mat-grid-list {
+  height: calc(100% - 64px) !important;
+}
+
 .content {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2rem;
+  padding: 1rem;
 
   p {
     color: grey;
     font-size: 2rem;
     font-weight: 700;
+    text-align: center;
+    line-height: 2rem;
+    color: #3f51b5;
   }
 
   button {

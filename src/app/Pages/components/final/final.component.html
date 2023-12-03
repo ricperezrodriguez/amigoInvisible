@@ -1,0 +1,15 @@
+<mat-grid-list cols="1" rowHeight="100%">
+  <mat-grid-tile [style.background]="'lightblue'">
+    <div class="content">
+      <p>Tienes que superar las pruebas para descubrir el siguiente código que te permitirá abrir la caja:</p>
+      <div class="estrellas">
+        <mat-icon *ngFor="let prueba of estadoPruebas" [ngClass]="{ superada: prueba }">grade</mat-icon>
+      </div>
+      <div class="codigo">
+        <span *ngFor="let prueba of estadoPruebas; index as i">
+          {{ prueba ? codigo[i] : '-' }}
+        </span>
+      </div>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>

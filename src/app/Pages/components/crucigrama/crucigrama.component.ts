@@ -2,8 +2,10 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { ModalFailComponent } from 'src/app/shared/modal-fail/modal-fail.component';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/app.reducer';
 import { ModalService } from 'src/app/shared/modal.service';
+import { superada } from 'src/app/state/pruebas.actions';
 
 interface Letra {
   sel: boolean;
@@ -66,7 +68,11 @@ export class CrucigramaComponent implements OnInit {
   ];
 
   get juegoAcabado(): boolean {
-    return this.palabras.every((p) => p.encontrada);
+    const acabado = this.palabras.every((p) => p.encontrada);
+    if (acabado) {
+      this.store.dispatch(superada({ id: 0 }));
+    }
+    return acabado;
   }
 
   private palabrasOrdenadas: string[] = [];
@@ -86,7 +92,10 @@ export class CrucigramaComponent implements OnInit {
     [{sel: false, marcada: false, l: 'A'}, {sel: false, marcada: false, l: 'H'}, {sel: false, marcada: false, l: 'C'}, {sel: false, marcada: false, l: 'U'}, {sel: false, marcada: false, l: 'N'}, {sel: false, marcada: false, l: 'E'}, {sel: false, marcada: false, l: 'A'}, {sel: false, marcada: false, l: 'H'}, {sel: false, marcada: false, l: 'C'}, {sel: false, marcada: false, l: 'U'}, {sel: false, marcada: false, l: 'M'}, ],
   ]
 
-  constructor(private _modalService: ModalService) {}
+  constructor(
+    private _modalService: ModalService,
+    private store: Store<AppState>,
+  ) {}
 
   ngOnInit(): void {
     this.palabras.forEach((palabra) => {
@@ -124,6 +133,7 @@ export class CrucigramaComponent implements OnInit {
 
       const pos = this.palabrasOrdenadas.indexOf(p);
       this.palabras[pos].encontrada = true;
+      this._modalService.mostrarModalOk();
     } else {
       this.arr = this.arr.map((fila) => {
         return fila.map((col) => {
@@ -138,7 +148,7 @@ export class CrucigramaComponent implements OnInit {
         });
       });
 
-      this._modalService.mostrarModal(ModalFailComponent);
+      this._modalService.mostrarModalFail();
     }
 
     this.letrasSeleccionas = '';
