@@ -1,5 +1,10 @@
-<div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-  @for (movie of movies; track movie) {
-  <div class="example-box" cdkDrag>{{ movie }}</div>
-  }
+<div class="container">
+  <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+    @for (item of arrTotal; track item) {
+    <div class="example-box" cdkDrag>
+      <img src="assets/personas/{{ item }}.png" alt="kike cayendo" class="imagen" />
+    </div>
+    }
+  </div>
+  <button mat-raised-button color="accent" (click)="comprobar()">Comprobar</button>
 </div>

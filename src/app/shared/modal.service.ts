@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { delay, of, take } from 'rxjs';
 import { ModalFailComponent } from './modal-fail/modal-fail.component';
 import { ModalOkComponent } from './modal-ok/modal-ok.component';
+import { ModalTextComponent } from './modal-text/modal-text.component';
 
 @Injectable({
   providedIn: 'root',
@@ -38,5 +39,13 @@ export class ModalService {
     of(null)
       .pipe(take(1), delay(5000))
       .subscribe(() => ref.close());
+  }
+
+  modalText(texto: string) {
+    this.dialog.open(ModalTextComponent, {
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '200ms',
+      data: texto,
+    });
   }
 }

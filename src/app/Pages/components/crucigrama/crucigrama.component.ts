@@ -101,6 +101,10 @@ export class CrucigramaComponent implements OnInit {
     this.palabras.forEach((palabra) => {
       this.palabrasOrdenadas.push(palabra.palabra.split('').sort().join('').trim().toUpperCase());
     });
+
+    this._modalService.modalText(
+      'Primera Prueba!!! Vamos a empezar con un poco de TVG. Encuentra las palabras en la sopa de letras',
+    );
   }
 
   teclaSeleccionada(letra: Letra) {

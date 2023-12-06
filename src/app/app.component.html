@@ -15,7 +15,7 @@
       >
         <mat-icon *ngIf="prueba" class="iconOk" matListItemIcon>thumb_up</mat-icon>
         <mat-icon *ngIf="!prueba" class="iconMal" matListItemIcon>thumb_down</mat-icon>
-        <div matListItemTitle>{{ 'Prueba ' + i }}</div>
+        <div matListItemTitle>{{ 'Prueba ' + (i + 1) }}</div>
         <div matListItemLine>{{ prueba ? 'Superada' : 'No superada' }}</div>
       </a>
     </mat-nav-list>
