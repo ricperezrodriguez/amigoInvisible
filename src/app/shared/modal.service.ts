@@ -6,6 +6,10 @@ import { ModalFailComponent } from './modal-fail/modal-fail.component';
 import { ModalOkComponent } from './modal-ok/modal-ok.component';
 import { ModalTextComponent } from './modal-text/modal-text.component';
 
+export interface DataModal {
+  texto: string;
+  imagen: string;
+}
 @Injectable({
   providedIn: 'root',
 })
@@ -41,11 +45,14 @@ export class ModalService {
       .subscribe(() => ref.close());
   }
 
-  modalText(texto: string) {
+  modalText(datos: DataModal) {
     this.dialog.open(ModalTextComponent, {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '200ms',
-      data: texto,
+      data: {
+        texto: datos.texto,
+        imagen: datos.imagen,
+      },
     });
   }
 }

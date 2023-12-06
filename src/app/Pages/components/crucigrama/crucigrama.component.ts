@@ -102,9 +102,10 @@ export class CrucigramaComponent implements OnInit {
       this.palabrasOrdenadas.push(palabra.palabra.split('').sort().join('').trim().toUpperCase());
     });
 
-    this._modalService.modalText(
-      'Primera Prueba!!! Vamos a empezar con un poco de TVG. Encuentra las palabras en la sopa de letras',
-    );
+    this._modalService.modalText({
+      texto: 'Primera Prueba!!! Vamos a empezar con un poco de TVG. Encuentra las palabras en la sopa de letras',
+      imagen: 'gayoso.gif',
+    });
   }
 
   teclaSeleccionada(letra: Letra) {

@@ -1,4 +1,5 @@
 import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { Store } from '@ngrx/store';
@@ -9,7 +10,7 @@ import { superada } from 'src/app/state/pruebas.actions';
 @Component({
   selector: 'app-asociar',
   standalone: true,
-  imports: [CdkDropList, CdkDrag, MatButtonModule],
+  imports: [CommonModule, CdkDropList, CdkDrag, MatButtonModule],
   templateUrl: './asociar.component.html',
   styleUrl: './asociar.component.scss',
 })
@@ -25,9 +26,11 @@ export class AsociarComponent implements OnInit {
 
   ngOnInit(): void {
     this.arrTotal = [...this.personas, ...this.cosas].sort(() => 0.5 - Math.random());
-    this._modalService.modalText(
-      'Bien... En esta segunda prueba tienes que ordenar cada persona con un objeto relacionado. Arrastra y ordena PERSONA - OBJETO',
-    );
+    this._modalService.modalText({
+      texto:
+        'Bien... En esta segunda prueba tienes que ordenar cada persona con un objeto relacionado. Arrastra y ordena PERSONA - OBJETO',
+      imagen: 'kikeOk.png',
+    });
   }
 
   drop(event: CdkDragDrop<string[]>) {
