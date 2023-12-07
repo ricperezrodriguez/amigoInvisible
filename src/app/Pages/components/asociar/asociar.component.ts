@@ -29,7 +29,7 @@ export class AsociarComponent implements OnInit {
     this._modalService.modalText({
       texto:
         'Bien... En esta segunda prueba tienes que ordenar cada persona con un objeto relacionado. Arrastra y ordena PERSONA - OBJETO',
-      imagen: 'kikeOk.png',
+      imagen: 'minions.gif',
     });
   }
 

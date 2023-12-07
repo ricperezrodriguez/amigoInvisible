@@ -21,7 +21,7 @@ export const routes: Routes = [
   },
   {
     path: 'prueba3',
-    loadComponent: () => import('./Pages/components/pregunta/pregunta.component').then((m) => m.PreguntaComponent),
+    loadComponent: () => import('./Pages/components/preguntaCaca/caca/caca.component').then((m) => m.CacaComponent),
   },
   {
     path: 'prueba4',
