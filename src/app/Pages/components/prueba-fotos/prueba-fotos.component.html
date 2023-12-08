@@ -1,0 +1,21 @@
+<div [formGroup]="fotoForm" class="container">
+  @for (lugar of lugares; track $index) {
+
+  <img src="assets/lugares/{{ $index + 1 }}detalle.jpg" alt="lugar" class="imagen" />
+
+  <mat-form-field class="selector">
+    <mat-label>¿Dónde es?</mat-label>
+    <mat-select [formControlName]="$index" required>
+      @for (opcion of lugar.opciones; track opcion) {
+      <mat-option [value]="opcion" (onSelectionChange)="cambio(opcion)">{{ opcion.lugar }}</mat-option>
+      }
+    </mat-select>
+    @if (fotoForm.get($index.toString())?.hasError) {
+    <mat-error>Maaal!! Haz memoria!</mat-error>
+    } @else {
+    <mat-hint>{{ lugar.resBien }}</mat-hint>
+    }
+  </mat-form-field>
+
+  }
+</div>

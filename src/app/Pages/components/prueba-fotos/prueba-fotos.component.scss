@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .imagen {
+    width: 80%;
+    max-width: 40rem;
+    margin-top: 1rem;
+  }
+
+  .selector {
+    margin: 0.75rem 0 5rem;
+  }
+}

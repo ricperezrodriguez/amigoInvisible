@@ -26,7 +26,7 @@ export const routes: Routes = [
   {
     path: 'prueba4',
     loadComponent: () =>
-      import('./Pages/components/crucigrama/crucigrama.component').then((m) => m.CrucigramaComponent),
+      import('./Pages/components/prueba-fotos/prueba-fotos.component').then((m) => m.PruebaFotosComponent),
   },
   {
     path: 'resumen',
