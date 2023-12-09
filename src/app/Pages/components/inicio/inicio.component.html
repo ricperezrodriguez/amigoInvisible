@@ -1,4 +1,4 @@
-<mat-grid-list cols="1" rowHeight="100%">
+<mat-grid-list cols="1" rowHeight="100%" *ngIf="vm$ | async as vm">
   <mat-grid-tile [style.background]="'lightblue'">
     <div class="content">
       <p>
@@ -6,7 +6,10 @@
         superada tendrás un numero. ¡Descúbrelos todos!
       </p>
 
-      <button mat-raised-button color="accent" (click)="irPrueba1()">Iniciar</button>
+      <button *ngIf="!vm.algunaPruebaSuperada" mat-raised-button color="accent" (click)="irPrueba1()">Iniciar</button>
+      <button *ngIf="vm.algunaPruebaSuperada" mat-raised-button color="accent" (click)="resetarjuego()">
+        Resetear juego
+      </button>
     </div>
   </mat-grid-tile>
 </mat-grid-list>
