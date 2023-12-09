@@ -1,9 +1,9 @@
-<h1 mat-dialog-title align="center">EXPLICACIÓN</h1>
+<h1 *ngIf="data.titulo" mat-dialog-title align="center">{{ data.titulo }}</h1>
 <div mat-dialog-content>
   <p>{{ data.texto }}</p>
   <img src="assets/{{ data.imagen }}" alt="kike OK" class="imagen" />
 
-  <mat-dialog-actions align="center">
-    <button mat-stroked-button color="primary" mat-dialog-close cdkFocusInitial>Comenzar</button>
+  <mat-dialog-actions *ngIf="data.button" align="center">
+    <button mat-stroked-button color="primary" mat-dialog-close cdkFocusInitial>{{ data.button }}</button>
   </mat-dialog-actions>
 </div>

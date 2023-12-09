@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
+import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';
 import { ModalService } from 'src/app/shared/modal.service';
+import { superada } from 'src/app/state/pruebas.actions';
 
 interface Lugar {
   resBien: string;
@@ -15,86 +17,88 @@ interface Lugar {
 interface Opciones {
   lugar: string;
   ok: boolean;
+  rutaFoto?: string;
 }
 
 @Component({
   selector: 'app-prueba-fotos',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule],
   templateUrl: './prueba-fotos.component.html',
   styleUrl: './prueba-fotos.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PruebaFotosComponent implements OnInit {
   lugares: Lugar[] = [
     {
-      resBien: 'Woof!',
+      resBien: 'Estaba claro, esa cabina...',
       opciones: [
-        { lugar: 'barcelona', ok: false },
-        { lugar: 'bilbao', ok: false },
-        { lugar: 'londres', ok: false },
-        { lugar: 'Sevilla', ok: true },
-      ],
-    },
-    {
-      resBien: 'Woof!',
-      opciones: [
-        { lugar: 'barcelona', ok: false },
-        { lugar: 'bilbao', ok: false },
-        { lugar: 'londres', ok: true },
+        { lugar: 'Barcelona', ok: false },
+        { lugar: 'Bilbao', ok: false },
+        { lugar: 'Londres', ok: true, rutaFoto: '1' },
         { lugar: 'Sevilla', ok: false },
       ],
     },
     {
-      resBien: 'Woof!',
+      resBien: 'Estaba tirao!',
       opciones: [
-        { lugar: 'barcelona', ok: false },
-        { lugar: 'bilbao', ok: true },
-        { lugar: 'londres', ok: false },
+        { lugar: 'Como', ok: false },
+        { lugar: 'Alemania', ok: false },
+        { lugar: 'Milano', ok: true, rutaFoto: '2' },
         { lugar: 'Sevilla', ok: false },
       ],
     },
     {
-      resBien: 'Woof!',
+      resBien: 'Ese lago y esas montañas...',
       opciones: [
-        { lugar: 'barcelona', ok: false },
-        { lugar: 'bilbao', ok: false },
-        { lugar: 'londres', ok: false },
-        { lugar: 'Sevilla', ok: true },
-      ],
-    },
-    {
-      resBien: 'Woof!',
-      opciones: [
-        { lugar: 'barcelona', ok: false },
-        { lugar: 'bilbao', ok: false },
-        { lugar: 'londres', ok: true },
+        { lugar: 'Barcelona', ok: false },
+        { lugar: 'Como', ok: true, rutaFoto: '3' },
+        { lugar: 'Verona', ok: false },
         { lugar: 'Sevilla', ok: false },
       ],
     },
     {
-      resBien: 'Woof!',
+      resBien: 'Mucho rojo...',
       opciones: [
-        { lugar: 'barcelona', ok: false },
-        { lugar: 'bilbao', ok: true },
-        { lugar: 'londres', ok: false },
+        { lugar: 'Paris', ok: true, rutaFoto: '4' },
+        { lugar: 'Bilbao', ok: false },
+        { lugar: 'Cudillero', ok: false },
         { lugar: 'Sevilla', ok: false },
       ],
     },
     {
-      resBien: 'Woof!',
+      resBien: 'SEVILLA!!!!!!',
       opciones: [
         { lugar: 'barcelona', ok: false },
-        { lugar: 'bilbao', ok: false },
-        { lugar: 'londres', ok: false },
-        { lugar: 'Sevilla', ok: true },
+        { lugar: 'Bilbao', ok: false },
+        { lugar: 'Londres', ok: false },
+        { lugar: 'Sevilla', ok: true, rutaFoto: '5' },
       ],
     },
     {
-      resBien: 'Woof!',
+      resBien: 'Una salchicha siempre se recuerda!',
       opciones: [
-        { lugar: 'barcelona', ok: false },
-        { lugar: 'bilbao', ok: false },
-        { lugar: 'londres', ok: true },
+        { lugar: 'Londres', ok: true, rutaFoto: '6' },
+        { lugar: 'Pontevedra', ok: false },
+        { lugar: 'Porto', ok: false },
+        { lugar: 'Sevilla', ok: false },
+      ],
+    },
+    {
+      resBien: 'Es lo que hay que ver aquí!',
+      opciones: [
+        { lugar: 'Milano', ok: true, rutaFoto: '7' },
+        { lugar: 'Caldas', ok: false },
+        { lugar: 'Vigo', ok: false },
+        { lugar: 'Sevilla', ok: false },
+      ],
+    },
+    {
+      resBien: 'Ahí está!',
+      opciones: [
+        { lugar: 'Verona', ok: false },
+        { lugar: 'Bilbao', ok: false },
+        { lugar: 'Venecia', ok: true, rutaFoto: '8' },
         { lugar: 'Sevilla', ok: false },
       ],
     },
@@ -108,6 +112,14 @@ export class PruebaFotosComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this._modalService.modalText({
+      titulo: 'EXPLICACIÓN',
+      texto:
+        'En esta prueba vas a ver una pequeña parte de una foto. ¡¡Adivina en que lugar fue hecha!! ¡¡Incluso pudo ser en Sevilla!!',
+      imagen: 'cerdo.gif',
+      button: 'Comenzar',
+    });
+
     this.lugares.forEach((lugar, index) => {
       const control = this.fotoForm.addControl(
         index.toString(),
@@ -124,13 +136,18 @@ export class PruebaFotosComponent implements OnInit {
     return { customError: true };
   }
 
-  cambio(opcion: Opciones) {
-    console.log(opcion);
-    if (opcion.ok) {
+  cambio(opcion: MatSelectChange) {
+    if (opcion.value.ok) {
       this._modalService.modalText({
+        titulo: null,
         texto: 'Correcto!!! Aqui tienes la foto:',
-        imagen: 'lugares/1.jpg',
+        imagen: `lugares/${opcion.value.rutaFoto}.jpg`,
+        button: null,
       });
+    }
+
+    if (this.fotoForm.valid) {
+      this.store.dispatch(superada({ id: 3 }));
     }
   }
 }

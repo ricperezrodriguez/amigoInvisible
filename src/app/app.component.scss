@@ -6,6 +6,11 @@
   color: red !important;
 }
 
+mat-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 99999;
+}
 .estrellas {
   display: flex;
   align-items: center;
@@ -19,5 +24,19 @@
 
   .superada {
     color: gold;
+  }
+
+  .todasSuperadas {
+    animation: agrandarEncoger 2s infinite;
+  }
+}
+
+@keyframes agrandarEncoger {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.5);
   }
 }

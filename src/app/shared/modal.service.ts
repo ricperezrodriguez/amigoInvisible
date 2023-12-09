@@ -7,8 +7,10 @@ import { ModalOkComponent } from './modal-ok/modal-ok.component';
 import { ModalTextComponent } from './modal-text/modal-text.component';
 
 export interface DataModal {
+  titulo: string | null;
   texto: string;
   imagen: string;
+  button: string | null;
 }
 @Injectable({
   providedIn: 'root',
@@ -49,10 +51,7 @@ export class ModalService {
     this.dialog.open(ModalTextComponent, {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '200ms',
-      data: {
-        texto: datos.texto,
-        imagen: datos.imagen,
-      },
+      data: datos,
     });
   }
 }

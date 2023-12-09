@@ -27,6 +27,7 @@ interface Palabra {
 })
 export class CrucigramaComponent implements OnInit {
   letrasSeleccionas: string = '';
+  juegoAcabado = false;
 
   palabras: Palabra[] = [
     {
@@ -67,14 +68,6 @@ export class CrucigramaComponent implements OnInit {
     },
   ];
 
-  get juegoAcabado(): boolean {
-    const acabado = this.palabras.every((p) => p.encontrada);
-    if (acabado) {
-      this.store.dispatch(superada({ id: 0 }));
-    }
-    return acabado;
-  }
-
   private palabrasOrdenadas: string[] = [];
 
   /* prettier-ignore */
@@ -103,8 +96,10 @@ export class CrucigramaComponent implements OnInit {
     });
 
     this._modalService.modalText({
-      texto: 'Primera Prueba!!! Vamos a empezar con un poco de TVG. Encuentra las palabras en la sopa de letras',
+      titulo: 'EXPLICACIÓN',
+      texto: '¡¡TVG!! Encuentra las palabras en la sopa de letras',
       imagen: 'gayoso.gif',
+      button: 'Comenzar',
     });
   }
 
@@ -156,6 +151,17 @@ export class CrucigramaComponent implements OnInit {
       this._modalService.mostrarModalFail();
     }
 
+    this._juegoAcabado();
+
     this.letrasSeleccionas = '';
+  }
+
+  private _juegoAcabado(): boolean {
+    const acabado = this.palabras.every((p) => p.encontrada);
+    if (acabado) {
+      this.store.dispatch(superada({ id: 0 }));
+      this.juegoAcabado = true;
+    }
+    return acabado;
   }
 }

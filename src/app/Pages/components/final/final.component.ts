@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { Store } from '@ngrx/store';
@@ -12,6 +12,7 @@ import { AppState } from 'src/app/app.reducer';
   imports: [CommonModule, MatGridListModule, MatIconModule],
   templateUrl: './final.component.html',
   styleUrl: './final.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FinalComponent implements OnInit {
   estadoPruebas!: boolean[];

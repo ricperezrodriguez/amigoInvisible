@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { Router } from '@angular/router';
@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
   imports: [MatButtonModule, MatGridListModule],
   templateUrl: './inicio.component.html',
   styleUrls: ['./inicio.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InicioComponent {
   constructor(private router: Router) {}

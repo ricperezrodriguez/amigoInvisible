@@ -1,4 +1,4 @@
-<mat-drawer-container fullscreen [hasBackdrop]="true">
+<mat-drawer-container fullscreen [hasBackdrop]="true" *ngIf="vm$ | async as vm">
   <mat-drawer #sidenav mode="push">
     <mat-toolbar color="primary">
       <span>Lista de Pruebas</span>
@@ -7,7 +7,7 @@
 
     <mat-nav-list>
       <a
-        *ngFor="let prueba of estadoPruebas; index as i"
+        *ngFor="let prueba of vm.estadoPruebas; index as i"
         routerLink="{{ 'prueba' + (i + 1) }}"
         mat-list-item
         (click)="sidenav.toggle()"
@@ -29,7 +29,11 @@
     <span class="spacer"></span>
 
     <button mat-raised-button color="primary" class="estrellas" routerLink="resumen">
-      <mat-icon *ngFor="let prueba of estadoPruebas" [ngClass]="{ superada: prueba }">grade</mat-icon>
+      <mat-icon
+        *ngFor="let prueba of vm.estadoPruebas"
+        [ngClass]="{ superada: prueba, todasSuperadas: vm.todasSuperadas }"
+        >grade</mat-icon
+      >
     </button>
 
     <button mat-raised-button color="primary" routerLink="">

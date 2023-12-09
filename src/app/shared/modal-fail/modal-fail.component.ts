@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import {
   MatDialogActions,
@@ -14,6 +14,7 @@ import {
   imports: [MatButtonModule, MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent],
   templateUrl: './modal-fail.component.html',
   styleUrl: './modal-fail.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ModalFailComponent {
   constructor(public dialogRef: MatDialogRef<ModalFailComponent>) {}

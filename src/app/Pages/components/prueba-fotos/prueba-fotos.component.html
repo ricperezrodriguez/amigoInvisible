@@ -5,17 +5,16 @@
 
   <mat-form-field class="selector">
     <mat-label>¿Dónde es?</mat-label>
-    <mat-select [formControlName]="$index" required>
+    <mat-select [formControlName]="$index" required (selectionChange)="cambio($event)">
       @for (opcion of lugar.opciones; track opcion) {
-      <mat-option [value]="opcion" (onSelectionChange)="cambio(opcion)">{{ opcion.lugar }}</mat-option>
+      <mat-option [value]="opcion">{{ opcion.lugar }}</mat-option>
       }
     </mat-select>
-    @if (fotoForm.get($index.toString())?.hasError) {
+
     <mat-error>Maaal!! Haz memoria!</mat-error>
-    } @else {
+    @if (!fotoForm.get($index.toString())?.invalid && fotoForm.get($index.toString())?.touched) {
     <mat-hint>{{ lugar.resBien }}</mat-hint>
     }
   </mat-form-field>
-
   }
 </div>

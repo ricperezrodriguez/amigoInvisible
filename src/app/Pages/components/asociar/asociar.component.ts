@@ -1,6 +1,6 @@
 import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';
@@ -13,6 +13,7 @@ import { superada } from 'src/app/state/pruebas.actions';
   imports: [CommonModule, CdkDropList, CdkDrag, MatButtonModule],
   templateUrl: './asociar.component.html',
   styleUrl: './asociar.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AsociarComponent implements OnInit {
   personas = ['antonio', 'brenda', 'kike', 'lico', 'maite', 'miriam', 'olalla', 'ricardo', 'xiana'];
@@ -27,9 +28,11 @@ export class AsociarComponent implements OnInit {
   ngOnInit(): void {
     this.arrTotal = [...this.personas, ...this.cosas].sort(() => 0.5 - Math.random());
     this._modalService.modalText({
+      titulo: 'EXPLICACIÓN',
       texto:
         'Bien... En esta segunda prueba tienes que ordenar cada persona con un objeto relacionado. Arrastra y ordena PERSONA - OBJETO',
       imagen: 'minions.gif',
+      button: 'Comenzar',
     });
   }
 
