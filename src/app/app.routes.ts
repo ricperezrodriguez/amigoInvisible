@@ -13,11 +13,12 @@ export const routes: Routes = [
   {
     path: 'prueba1',
     loadComponent: () =>
-      import('./Pages/components/crucigrama/crucigrama.component').then((m) => m.CrucigramaComponent),
+      import('./Pages/components/sopa-letras/sopa-letras.component').then((m) => m.SopaLetrasComponent),
   },
   {
     path: 'prueba2',
-    loadComponent: () => import('./Pages/components/asociar/asociar.component').then((m) => m.AsociarComponent),
+    loadComponent: () =>
+      import('./Pages/components/asociarFriends/asociarFriends.component').then((m) => m.AsociarFriendsComponent),
   },
   {
     path: 'prueba3',
@@ -25,8 +26,11 @@ export const routes: Routes = [
   },
   {
     path: 'prueba4',
-    loadComponent: () =>
-      import('./Pages/components/prueba-fotos/prueba-fotos.component').then((m) => m.PruebaFotosComponent),
+    loadComponent: () => import('./Pages/components/frases/frases.component').then((m) => m.frasesComponent),
+  },
+  {
+    path: 'prueba5',
+    loadComponent: () => import('./Pages/components/blackjack/blackjack.component').then((m) => m.BlackjackComponent),
   },
   {
     path: 'resumen',

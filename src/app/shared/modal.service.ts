@@ -32,7 +32,7 @@ export class ModalService {
     });
 
     of(null)
-      .pipe(take(1), delay(1500))
+      .pipe(take(1), delay(2500))
       .subscribe(() => ref.close());
   }
 

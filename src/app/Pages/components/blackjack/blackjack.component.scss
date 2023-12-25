@@ -1,0 +1,33 @@
+.container {
+  background-color: #2f4f30;
+  height: calc(100% - 64px);
+  color: white;
+
+  > h2 {
+    text-align: center;
+  }
+
+  .botones {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .jugador {
+    margin: 2rem 1.5rem;
+    min-height: 10rem;
+
+    h2 {
+      margin-bottom: 0.25rem;
+    }
+
+    .cartas {
+      .carta {
+        width: 30%;
+        max-width: 150px;
+        position: relative;
+        left: 75px;
+        margin-left: -75px;
+      }
+    }
+  }
+}

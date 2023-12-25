@@ -87,7 +87,7 @@ export class CrucigramaComponent implements OnInit {
 
   constructor(
     private _modalService: ModalService,
-    private store: Store<AppState>,
+    private _store: Store<AppState>,
   ) {}
 
   ngOnInit(): void {
@@ -159,7 +159,7 @@ export class CrucigramaComponent implements OnInit {
   private _juegoAcabado(): boolean {
     const acabado = this.palabras.every((p) => p.encontrada);
     if (acabado) {
-      this.store.dispatch(superada({ id: 0 }));
+      this._store.dispatch(superada({ id: 0 }));
       this.juegoAcabado = true;
     }
     return acabado;

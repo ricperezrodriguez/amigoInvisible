@@ -12,3 +12,21 @@ body {
 .spacer {
   flex: 1 1 auto;
 }
+
+@font-face {
+  font-family: 'Caveat-bold';
+  src: url('./assets/fonts/Caveat-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Caveat-medium';
+  src: url('./assets/fonts/Caveat-Medium.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Caveat-regular';
+  src: url('./assets/fonts/Caveat-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Caveat-semibold';
+  src: url('./assets/fonts/Caveat-SemiBold.ttf') format('truetype');
+}

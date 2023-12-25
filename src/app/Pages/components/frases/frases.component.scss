@@ -1,0 +1,52 @@
+.titulo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Caveat-semibold';
+  font-weight: 900;
+  font-size: 2rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+
+  .circulo {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .rojo {
+    background-color: #9c2d2d;
+  }
+
+  .azul {
+    background-color: #00ffff;
+  }
+
+  .amarillo {
+    background-color: #f3ef10;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: larger;
+  text-transform: uppercase;
+
+  .frase {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .selector {
+      width: 8rem;
+    }
+
+    .nombre {
+      font-family: 'Caveat-semibold';
+      font-weight: 900;
+    }
+  }
+}

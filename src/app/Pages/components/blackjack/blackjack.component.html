@@ -1,0 +1,35 @@
+<div *ngIf="vm$ | async as vm" class="container">
+  <h2>Blackjack</h2>
+
+  <div class="botones">
+    <button mat-raised-button color="warn" (click)="nuevoJuego()">Nuevo Juego</button>
+    <button mat-raised-button color="primary" [disabled]="vm.puntosJugador >= 21 || detener" (click)="pedirCarta()">
+      Pedir carta
+    </button>
+    <button mat-raised-button color="primary" [disabled]="vm.puntosJugador >= 21 || detener" (click)="detenerJuego()">
+      Detener
+    </button>
+  </div>
+
+  <div class="jugador">
+    <div class="col">
+      <h2>
+        Jugador - <small>{{ vm.puntosJugador }}</small>
+      </h2>
+      <div class="cartas">
+        <img *ngFor="let carta of vm.cartasJugador" class="carta" [src]="'./assets/cartas/' + carta + '.png'" />
+      </div>
+    </div>
+  </div>
+
+  <div class="jugador">
+    <div class="col">
+      <h2>
+        Ordenador - <small>{{ vm.puntosOrdenador }}</small>
+      </h2>
+      <div class="cartas">
+        <img *ngFor="let carta of vm.cartasOrdenador" class="carta" [src]="'./assets/cartas/' + carta + '.png'" />
+      </div>
+    </div>
+  </div>
+</div>

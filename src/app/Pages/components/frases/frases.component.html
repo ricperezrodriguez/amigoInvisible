@@ -1,0 +1,34 @@
+<div class="titulo">
+  <span>F</span>
+  <span class="circulo rojo"></span>
+  <span>R</span>
+  <span class="circulo azul"></span>
+  <span>I</span>
+  <span class="circulo amarillo"></span>
+  <span>E</span>
+  <span class="circulo rojo"></span>
+  <span>N</span>
+  <span class="circulo amarillo"></span>
+  <span>D</span>
+  <span class="circulo azul"></span>
+  <span>S</span>
+</div>
+
+<div [formGroup]="frasesForm" class="container">
+  @for (frase of frases; track $index) {
+  <div class="frase">
+    <mat-form-field class="selector">
+      <mat-select [formControlName]="$index" required (selectionChange)="cambio($event)">
+        @for (opcion of frase.opciones; track opcion) {
+        <mat-option [value]="opcion">{{ opcion.palabra }}</mat-option>
+        }
+      </mat-select>
+
+      <mat-error>Maaal!! Piensa bien!</mat-error>
+    </mat-form-field>
+
+    <span>like </span>
+    <span class="nombre">{{ frase.quien }}</span>
+  </div>
+  }
+</div>
