@@ -1,10 +1,7 @@
 <mat-grid-list cols="1" rowHeight="100%" *ngIf="vm$ | async as vm">
   <mat-grid-tile [style.background]="'lightblue'">
     <div class="content">
-      <p>
-        Para poder abrir el regalo del amigo invisible tienes que descubrir el codigo que abre la caja. Con cada prueba
-        superada tendrás un numero. ¡Descúbrelos todos!
-      </p>
+      <p>Para poder leer la cartita tienes que superar estas pruebas!! Son pruebas sencillitas y rapidas!!</p>
 
       <button *ngIf="!vm.algunaPruebaSuperada" mat-raised-button color="accent" (click)="irPrueba1()">Iniciar</button>
       <button *ngIf="vm.algunaPruebaSuperada" mat-raised-button color="accent" (click)="resetarjuego()">

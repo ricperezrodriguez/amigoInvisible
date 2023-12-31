@@ -22,14 +22,10 @@ export const routes: Routes = [
   },
   {
     path: 'prueba3',
-    loadComponent: () => import('./Pages/components/preguntaCaca/caca/caca.component').then((m) => m.CacaComponent),
-  },
-  {
-    path: 'prueba4',
     loadComponent: () => import('./Pages/components/frases/frases.component').then((m) => m.frasesComponent),
   },
   {
-    path: 'prueba5',
+    path: 'prueba4',
     loadComponent: () => import('./Pages/components/blackjack/blackjack.component').then((m) => m.BlackjackComponent),
   },
   {
